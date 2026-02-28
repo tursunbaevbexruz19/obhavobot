@@ -18,14 +18,14 @@ bot.start((ctx) => {
         : `Hello, ${ctx.from.first_name}! 🌤️ I'm a Weather bot.\n\nSend a city name or your location.`;
 
     ctx.reply(welcome, Markup.keyboard([
-        Markup.button.locationRequest(lang === 'uz' ? '📍 Lokatsiyani yuborish' : '📍 Send Location'),
+        [Markup.button.locationRequest(lang === 'uz' ? '📍 Lokatsiyani yuborish' : '📍 Send Location')],
         [lang === 'uz' ? '🇷🇺 RU' : '🇺🇿 UZ', lang === 'en' ? '🇺🇿 UZ' : '🇬🇧 EN']
     ]).resize());
 });
 
-bot.hears('🇷🇺 RU', (ctx) => { userLangs[ctx.from.id] = 'ru'; ctx.reply('Язык изменен на Русский 🇷🇺.\nОтправьте название города или локацию.', Markup.keyboard([Markup.button.locationRequest('📍 Отправить локацию'), ['🇺🇿 UZ', '🇬🇧 EN']]).resize()); });
-bot.hears('🇺🇿 UZ', (ctx) => { userLangs[ctx.from.id] = 'uz'; ctx.reply('Til O\'zbek tiliga o\'zgardi 🇺🇿.\nShahar nomini yoki lokatsiyani yuboring.', Markup.keyboard([Markup.button.locationRequest('📍 Lokatsiyani yuborish'), ['🇷🇺 RU', '🇬🇧 EN']]).resize()); });
-bot.hears('🇬🇧 EN', (ctx) => { userLangs[ctx.from.id] = 'en'; ctx.reply('Language changed to English 🇬🇧.\nSend a city name or location.', Markup.keyboard([Markup.button.locationRequest('📍 Send Location'), ['🇷🇺 RU', '🇺🇿 UZ']]).resize()); });
+bot.hears('🇷🇺 RU', (ctx) => { userLangs[ctx.from.id] = 'ru'; ctx.reply('Язык изменен на Русский 🇷🇺.\nОтправьте название города или локацию.', Markup.keyboard([[Markup.button.locationRequest('📍 Отправить локацию')], ['🇺🇿 UZ', '🇬🇧 EN']]).resize()); });
+bot.hears('🇺🇿 UZ', (ctx) => { userLangs[ctx.from.id] = 'uz'; ctx.reply('Til O\'zbek tiliga o\'zgardi 🇺🇿.\nShahar nomini yoki lokatsiyani yuboring.', Markup.keyboard([[Markup.button.locationRequest('📍 Lokatsiyani yuborish')], ['🇷🇺 RU', '🇬🇧 EN']]).resize()); });
+bot.hears('🇬🇧 EN', (ctx) => { userLangs[ctx.from.id] = 'en'; ctx.reply('Language changed to English 🇬🇧.\nSend a city name or location.', Markup.keyboard([[Markup.button.locationRequest('📍 Send Location')], ['🇷🇺 RU', '🇺🇿 UZ']]).resize()); });
 
 
 bot.on('location', async (ctx) => {
