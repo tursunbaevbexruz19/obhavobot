@@ -88,14 +88,18 @@ bot.action(/forecast_(.+)_(.+)/, async (ctx) => {
 });
 
 
+import { webhookCallback } from 'telegraf';
+
+// Create a handler natively using telegraf's built-in webhookCallback
+const handleWebhook = webhookCallback(bot, 'std/http');
+
 export async function POST(req: Request) {
     try {
-        const body = await req.json();
-        // Pass the request body natively to Telegraf webhook integration
-        await bot.handleUpdate(body);
-        return new Response('OK', { status: 200 });
+        // We use the raw request object directly with Telegraf's std/http handler
+        // which returns a standard web Response
+        return handleWebhook(req);
     } catch (err) {
-        console.error("Webhook Error:", err);
+        console.error("Webhook Error Response:", err);
         return new Response('Error', { status: 500 });
     }
 }
